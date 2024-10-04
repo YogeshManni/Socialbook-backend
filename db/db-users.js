@@ -30,12 +30,12 @@ class dbUsers {
   }
 
   updateUser(userdata) {
-    const data = userdata.data.user;
+    const data = userdata.data?.user || userdata;
 
     return this.dao.run(
       `update users set img=$1,phoneno=$2, fullname=$3, org=$4, role = $5 where username = $6 returning *`,
       [
-        userdata.filename,
+        userdata?.filename || userdata.img,
         data.phoneno,
         data.fullname,
         data.org,
