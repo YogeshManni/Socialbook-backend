@@ -12,9 +12,10 @@ class dbEvents {
   }
   addEvent(data) {
     let fronttext = data.frontText.replaceAll("'", "''");
+    // fronttext = fronttext.replaceAll('"', '""');
 
     let content = data.content.replaceAll("'", "''");
-
+    //  content = content.replaceAll('"', '""');
     const sql = `insert into events(fronttext, img, avtSrc,userName, content, likes, views, date) values(
                   '${fronttext}',
                   '${data.img}',
