@@ -1,0 +1,40 @@
+[debug] [2024-10-15T05:07:38.801Z] ----------------------------------------------------------------------
+[debug] [2024-10-15T05:07:38.804Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\lucif\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-10-15T05:07:38.804Z] CLI Version:   13.19.0
+[debug] [2024-10-15T05:07:38.804Z] Platform:      win32
+[debug] [2024-10-15T05:07:38.804Z] Node Version:  v21.4.0
+[debug] [2024-10-15T05:07:38.805Z] Time:          Mon Oct 14 2024 22:07:38 GMT-0700 (Pacific Daylight Saving Time)
+[debug] [2024-10-15T05:07:38.805Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-15T05:07:38.863Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-15T05:07:38.863Z] > authorizing via signed-in user (yogeshmanni786@gmail.com)
+[debug] [2024-10-15T05:07:38.864Z] [iam] checking project socialbook-3d2aa for permissions ["firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2024-10-15T05:07:38.865Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/socialbook-3d2aa:testIamPermissions [none]
+[debug] [2024-10-15T05:07:38.865Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/socialbook-3d2aa:testIamPermissions x-goog-quota-user=projects/socialbook-3d2aa
+[debug] [2024-10-15T05:07:38.865Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/socialbook-3d2aa:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2024-10-15T05:07:39.071Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/socialbook-3d2aa:testIamPermissions 200
+[debug] [2024-10-15T05:07:39.071Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/socialbook-3d2aa:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2024-10-15T05:07:39.072Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/socialbook-3d2aa [none]
+[debug] [2024-10-15T05:07:39.269Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/socialbook-3d2aa 200
+[debug] [2024-10-15T05:07:39.269Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/socialbook-3d2aa {"projectId":"socialbook-3d2aa","projectNumber":"109166852857","displayName":"socialbook","name":"projects/socialbook-3d2aa","resources":{"hostingSite":"socialbook-3d2aa","storageBucket":"socialbook-3d2aa.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_7c8a5571-fdbc-41d9-a930-8d446855de22"}
+[info] 
+[info] === Deploying to 'socialbook-3d2aa'...
+[info] 
+[info] i  deploying storage, hosting 
+[info] i  storage: ensuring required API firebasestorage.googleapis.com is enabled... 
+[debug] [2024-10-15T05:07:39.275Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/socialbook-3d2aa/services/firebasestorage.googleapis.com [none]
+[debug] [2024-10-15T05:07:39.275Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/socialbook-3d2aa/services/firebasestorage.googleapis.com x-goog-quota-user=projects/socialbook-3d2aa
+[debug] [2024-10-15T05:07:39.720Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/socialbook-3d2aa/services/firebasestorage.googleapis.com 200
+[debug] [2024-10-15T05:07:39.720Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/socialbook-3d2aa/services/firebasestorage.googleapis.com [omitted]
+[info] +  storage: required API firebasestorage.googleapis.com is enabled 
+[debug] [2024-10-15T05:07:39.721Z] >>> [apiv2][query] GET https://firebasestorage.googleapis.com/v1alpha/projects/socialbook-3d2aa/defaultBucket [none]
+[debug] [2024-10-15T05:07:40.187Z] <<< [apiv2][status] GET https://firebasestorage.googleapis.com/v1alpha/projects/socialbook-3d2aa/defaultBucket 200
+[debug] [2024-10-15T05:07:40.187Z] <<< [apiv2][body] GET https://firebasestorage.googleapis.com/v1alpha/projects/socialbook-3d2aa/defaultBucket {"name":"projects/socialbook-3d2aa/defaultBucket","location":"US","bucket":{"name":"projects/socialbook-3d2aa/buckets/socialbook-3d2aa.appspot.com"}}
+[info] i  firebase.storage: checking storage.rules for compilation errors... 
+[debug] [2024-10-15T05:07:40.189Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/socialbook-3d2aa:test [none]
+[debug] [2024-10-15T05:07:40.189Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/socialbook-3d2aa:test [omitted]
+[debug] [2024-10-15T05:07:40.364Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/socialbook-3d2aa:test 200
+[debug] [2024-10-15T05:07:40.365Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/socialbook-3d2aa:test {}
+[info] +  firebase.storage: rules file storage.rules compiled successfully 
+[debug] [2024-10-15T05:07:40.366Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/socialbook-3d2aa/versions [none]
+[debug] [2024-10-15T05:07:40.366Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/socialbook-3d2aa/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
