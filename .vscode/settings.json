@@ -1,0 +1,5 @@
+{
+  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
+  "appService.defaultWebAppToDeploy": "/subscriptions/a264a624-b983-4377-b642-ee8c87a954b0/resourceGroups/webapp-deployment/providers/Microsoft.Web/sites/socialbook",
+  "appService.deploySubpath": "."
+}
