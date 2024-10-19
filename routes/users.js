@@ -4,6 +4,10 @@ var dbEvents = require("../db/db-users");
 var bcrypt = require("bcrypt");
 var fs = require("fs");
 const multer = require("multer");
+const jwt = require("jsonwebtoken");
+var authenticateJWT = require("../lib/jwt");
+const dotenv = require("dotenv");
+dotenv.config();
 
 let _dbo = null;
 
@@ -31,7 +35,7 @@ const upload = multer({ storage: storage });
 
 router.post(
   "/uploadImage",
-  upload.fields([{ name: "image-file", maxCount: 1 }]),
+  // upload.fields([{ name: "image-file", maxCount: 1 }]),
   async function (req, res) {
     try {
       console.log("file uploaded");
@@ -48,6 +52,14 @@ router.post(
 
 router.post("/addUser", async (req, res, next) => {
   try {
+    const userExist = await getDbo().userExist(req.body.username);
+    if (userExist.length > 0) {
+      res.status(200).send({
+        status: "failed",
+        message: "User already exists, please select different username ",
+      });
+      return;
+    }
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
     const response = await getDbo().addUser(req.body);
@@ -56,11 +68,14 @@ router.post("/addUser", async (req, res, next) => {
       .json({ status: "success", message: "Account created successfully!" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ status: "failed", message: "Error occured" });
+    res.status(500).json({
+      status: "failed",
+      message: "Some error occured, please try again !!",
+    });
   }
 });
 
-router.get("/getUsers", async (req, res, next) => {
+router.get("/getUsers", authenticateJWT, async (req, res, next) => {
   try {
     const response = await getDbo().getUsers();
     res.status(200).send(response);
@@ -83,30 +98,53 @@ router.post("/login", async (req, res, next) => {
       return;
     }
 
+    // create jwt token
+    const token = jwt.sign(
+      { id: user[0].id, username: user[0].username },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: "7d",
+      }
+    );
+
     res.status(200).json({
       status: "success",
       message: "logged in successfully",
+      token,
       data: user[0],
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ status: "internal_error" });
+    res.status(500).json({ status: "internal_error", message: err });
   }
 });
 
-router.post("/updateUserdata", async (req, res, next) => {
+router.post("/updateUserdata", authenticateJWT, async (req, res, next) => {
   try {
     const response = await getDbo().updateUser(req.body);
-    res
-      .status(200)
-      .json({
-        status: "success",
-        message: "User data updated successfully!",
-        data: response[0],
-      });
+    res.status(200).json({
+      status: "success",
+      message: "User data updated successfully!",
+      data: response[0],
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ status: "failed", message: "Error occured" });
+  }
+});
+
+router.post("/logoutUser", authenticateJWT, async (req, res, next) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({
+      status: "success",
+      message: "User logged out!",
+    });
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ status: "failed", message: "Error occured while logging out" });
   }
 });
 
