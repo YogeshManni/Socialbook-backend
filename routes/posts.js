@@ -3,7 +3,7 @@ var router = express.Router();
 var dbPosts = require("../db/db-posts");
 const multer = require("multer");
 var fs = require("fs");
-
+var authenticateJWT = require("../lib/jwt");
 let _dbo = null;
 
 function getDbo() {
@@ -62,7 +62,7 @@ router.post(
   }
 );
 
-router.post("/", async function (req, res) {
+router.post("/", authenticateJWT, async function (req, res) {
   try {
     const posts = await getDbo().getPosts(req.body.email);
     res.status(200).json({
