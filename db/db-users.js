@@ -44,6 +44,10 @@ class dbUsers {
       ]
     );
   }
+
+  userExist(username) {
+    return this.dao.run(`select * from users where username=$1`, [username]);
+  }
 }
 
 module.exports = dbUsers;
