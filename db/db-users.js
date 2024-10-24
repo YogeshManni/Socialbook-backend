@@ -48,6 +48,20 @@ class dbUsers {
   userExist(username) {
     return this.dao.run(`select * from users where username=$1`, [username]);
   }
+
+  getUsersByRole(role, id) {
+    console.log(id);
+    const keywords = role.split(" ");
+    return this.dao.run(
+      ` SELECT *
+    FROM users
+    WHERE (${keywords
+      .map((keyword) => `LOWER(role) LIKE LOWER('%${keyword}%')`)
+      .join(" OR ")}) and id != $1
+    LIMIT 5`,
+      [id]
+    );
+  }
 }
 
 module.exports = dbUsers;

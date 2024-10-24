@@ -148,4 +148,23 @@ router.post("/logoutUser", authenticateJWT, async (req, res, next) => {
   }
 });
 
+router.get("/role/:role/:id", authenticateJWT, async (req, res, next) => {
+  try {
+    const response = await getDbo().getUsersByRole(
+      req.params.role,
+      req.params.id
+    );
+    res.status(200).json({
+      status: "success",
+      data: response,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "failed",
+      message: "Error occured while fetching users",
+    });
+  }
+});
+
 module.exports = router;
