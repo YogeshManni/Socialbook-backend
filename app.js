@@ -9,9 +9,11 @@ var eventsRouter = require("./routes/event");
 var mailRouter = require("./routes/mailer");
 var userRouter = require("./routes/users");
 var postsRouter = require("./routes/posts");
+const { Server } = require("socket.io");
 var cors = require("cors");
 var db = require("./db/index.js");
 var app = express();
+var http = require("http");
 const env = require("dotenv");
 env.config();
 // view engine setup
@@ -47,6 +49,64 @@ app.use(function (req, res, next) {
 //start db
 global.db = new db();
 
+/**** connected socket users  ****/
+
+var users = {};
+//***  create socket server *******//
+
+var server = http.createServer(app);
+
+const io = new Server(server, {
+  /*  cors: {
+    origin: process.env.ORIGIN,
+    methods: ["GET", "POST"],
+  }, */
+});
+
+/************ Socket connection and other functions *****/
+
+io.on("connection", (socket) => {
+  // Handle user identification
+  socket.on("register", (userId) => {
+    //  Add user to the users object if  not already present
+    if (!users[userId]) {
+      users[userId] = socket.id; // Associate user ID with socket ID
+      console.log(`
+        ----------------------------------------------------
+        User ${userId} registered with socket ID ${socket.id}
+        ----------------------------------------------------
+        `);
+    }
+  });
+
+  /*** Send chat messages to a particular user with io.to */
+  socket.on("chat message", (data) => {
+    const { from, to, message } = data;
+
+    //struct message acc to frontend
+
+    console.log(message, to);
+    //send message
+    io.to(users[to]).emit("chat message", { to, from, message });
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`
+      ---------------------------
+      Disconnecting user ..... 
+      ----------------------------
+      `);
+
+    for (let userId in users) {
+      if (users[userId] === socket.id) {
+        console.log(`User ${users[userId]} disconnected`);
+        delete users[userId];
+        break;
+      }
+    }
+  });
+});
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -58,4 +118,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-module.exports = app;
+module.exports = { app, server };
