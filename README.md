@@ -24,6 +24,36 @@ The SocialBook backend is built with **Node.js** and **Express**, providing REST
 
 ---
 
+## 2. Project Structure
+
+    socialbook-backend/
+    ├── config/
+    │   ├── db.js                # Database configuration
+    │   ├── auth.js              # Authentication configuration
+    │   └── config.js            # General configuration
+    ├── db/
+    │   ├── db-events.js    # Event queries
+    │   ├── db-posts.js     # Post queries
+    │   ├── db-users.js     # User crud operations
+    │   └── index.js        # connect with db
+    |
+    ├── routes/
+    │   ├── index.js        # entry routes
+    │   ├── posts.js        # Post routes
+    │   ├── event.js       # Event routes
+    │   |── users.js        # User routes
+    |   |── mailer.js        # Mailing routes
+    |
+    ├── lib/
+    │   ├── helpers.js           # Helper functions
+    │   └── jwt.js        # Validation functions
+    ├── .env                     # Environment variables
+    ├── .gitignore               # Git ignore file
+    ├── app.js                   # Express app setup
+    ├── package.json             # NPM package configuration
+    ├── package-lock.json        # NPM package lock file
+    └── README.md                # Project documentation
+
 ## 2. Features
 
 - **User Authentication**: Secure login, registration, and JWT-based authentication.
