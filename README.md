@@ -2,16 +2,18 @@
 
 ## Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Features](#features)
-3. [Technologies Used](#technologies-used)
-4. [System Architecture](#system-architecture)
-5. [Setup and Installation](#setup-and-installation)
-6. [API Documentation](#api-documentation)
-7. [Database Schema](#database-schema)
-8. [Testing](#testing)
-9. [Contribution Guidelines](#contribution-guidelines)
-10. [Future Improvements](#future-improvements)
+1. [Project Overview](#1-project-overview)
+2. [Features](#2-features)
+3. [Technologies Used](#3-technologies-used)
+4. [System Architecture](#4-system-architecture)
+5. [Setup and Installation](#5-setup-and-installation)
+6. [API Documentation](#6-api-documentation)
+7. [Database Schema](#7-database-schema)
+8. [Middleware](#8-middleware)
+9. [Security Measures](#9-security-measures)
+10. [Testing](#10-testing)
+11. [Contribution Guidelines](#11-contribution-guidelines)
+12. [Future Improvements](#12-future-improvements)
 
 ---
 
