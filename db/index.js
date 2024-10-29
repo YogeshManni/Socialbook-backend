@@ -46,6 +46,15 @@ module.exports = class appDb {
         );
 
         create table if not exists discussionData(id serial primary key, discussionId int, commentId int, name text, discussion text, likes int, date timestamptz);
+        
+        CREATE TABLE if not exists messages (
+    id SERIAL PRIMARY KEY,
+    text TEXT NOT NULL,
+    from_user INTEGER,
+    to_user INTEGER,
+   
+    timestamp timestamptz  DEFAULT CURRENT_TIMESTAMP
+);
         COMMIT;`;
     this.run(sql);
   }
