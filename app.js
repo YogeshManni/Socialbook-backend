@@ -9,6 +9,7 @@ var eventsRouter = require("./routes/event");
 var mailRouter = require("./routes/mailer");
 var userRouter = require("./routes/users");
 var postsRouter = require("./routes/posts");
+var messagesRouter = require("./routes/messages");
 const { Server } = require("socket.io");
 var cors = require("cors");
 var db = require("./db/index.js");
@@ -40,6 +41,7 @@ app.use("/event", eventsRouter);
 app.use("/users", userRouter);
 app.use("/posts", postsRouter);
 app.use("/verify", mailRouter);
+app.use("/messages", messagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -90,7 +92,7 @@ io.on("connection", (socket) => {
     io.to(users[to]).emit("chat message", { to, from, message });
   });
 
-  socket.on("disconnect", () => {
+  socket.on("removeuser", () => {
     console.log(`
       ---------------------------
       Disconnecting user ..... 
