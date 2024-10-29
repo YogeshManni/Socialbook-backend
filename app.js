@@ -92,20 +92,24 @@ io.on("connection", (socket) => {
     io.to(users[to]).emit("chat message", { to, from, message });
   });
 
-  socket.on("removeuser", () => {
+  socket.on("removeuser", (id) => {
     console.log(`
       ---------------------------
       Disconnecting user ..... 
       ----------------------------
       `);
 
-    for (let userId in users) {
+    if (users[id]) {
+      console.log(`User ${users[id]} disconnected`);
+      delete users[id];
+    }
+    /*  for (let userId in users) {
       if (users[userId] === socket.id) {
         console.log(`User ${users[userId]} disconnected`);
         delete users[userId];
         break;
       }
-    }
+    } */
   });
 });
 
