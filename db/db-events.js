@@ -49,7 +49,7 @@ class dbEvents {
       '${data.discussionid}',
       '${data.username}', 
       '${data.comment}',
-      '${data.date}',
+      CURRENT_TIMESTAMP,
       '${data.type}') returning *`;
     return this.dao.run(sql);
   }
