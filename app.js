@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var bodyParser = require("body-parser");
+
 var indexRouter = require("./routes/index");
 var eventsRouter = require("./routes/event");
 var mailRouter = require("./routes/mailer");
@@ -20,7 +20,7 @@ env.config();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
-//app.use(bodyParser(express.bodyParser({ limit: "50mb" })));
+
 app.use(logger("dev"));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: false }));

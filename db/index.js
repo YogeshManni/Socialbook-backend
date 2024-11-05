@@ -55,9 +55,6 @@ module.exports = class appDb {
     timestamp timestamptz  DEFAULT CURRENT_TIMESTAMP
 );
 
-
-
-
         COMMIT;`;
     this.run(sql);
   }
