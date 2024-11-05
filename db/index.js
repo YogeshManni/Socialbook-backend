@@ -37,7 +37,7 @@ module.exports = class appDb {
      
         create table if not exists posts(id serial primary key,
         username text, email text,likes int, img text, caption text,
-        date timestamptz, liked_users text[], type text);
+        date timestamptz, liked_users text[], type text, story BOOLEAN DEFAULT FALSE);
 
         create table if not exists events(id serial primary key, fronttext text, img text, avtSrc text,  
             userName text, content text, likes int, views int, date timestamptz);
@@ -47,14 +47,17 @@ module.exports = class appDb {
 
         create table if not exists discussionData(id serial primary key, discussionId int, commentId int, name text, discussion text, likes int, date timestamptz);
         
-        CREATE TABLE if not exists messages (
+        CREATE TABLE if not exists messages(
     id SERIAL PRIMARY KEY,
     text TEXT NOT NULL,
     from_user INTEGER,
     to_user INTEGER,
-   
     timestamp timestamptz  DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
+
         COMMIT;`;
     this.run(sql);
   }
