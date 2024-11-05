@@ -86,4 +86,18 @@ router.post("/updateLikes", async function (req, res, next) {
   }
 });
 
+router.post("/stories", authenticateJWT, async function (req, res) {
+  try {
+    const posts = await getDbo().getStories(req.body.email);
+    res.status(200).json({
+      posts: posts,
+      status: "success",
+      message: "stories fetched successfully!!",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+});
+
 module.exports = router;
