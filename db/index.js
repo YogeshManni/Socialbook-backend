@@ -1,5 +1,6 @@
 var pg = require("pg");
 const dotenv = require("dotenv");
+const deleteOldStories = require("../lib/cleanup");
 dotenv.config();
 
 module.exports = class appDb {
@@ -57,6 +58,10 @@ module.exports = class appDb {
 
         COMMIT;`;
     this.run(sql);
+
+    deleteOldStories();
+    // Schedule deletion every 12 hours (12 * 60 * 60 * 1000 ms)
+    setInterval(deleteOldStories, 12 * 60 * 60 * 1000);
   }
   run(sql, params = []) {
     return new Promise((resolve, reject) => {
